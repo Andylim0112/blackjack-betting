@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>BlackJack Betting</title>	
+	<link href="BlackJack_style.css" rel="stylesheet">
+	<script>
+				var myTotal = 0;
+				var computerTotal = 0;
+				var myWins = 0;
+				var computerWins = 0;
+				var rounds = 0;
+				var myMoney = 1000;
+				var comMoney = 1000; 
+				var betting = 0;
+				
+				// when this function is called, all the values except wins get erased
+		function reset() {
+				myTotal = 0;
+				computerTotal = 0;
+				betting = 0;
+				rounds = myWins + computerWins;
+				document.formName.round.value=rounds;
+				document.formName.mTotal.value=0;
+				document.formName.mCard.value=0;
+				document.formName.mMoney.value='$'+myMoney;
+				document.formName.cMoney.value='$'+comMoney;
+				document.formName.mbetting.value='$'+0;
+		}
+				
+				
+				
+				
+				
+		// this is the function I use when I win the game, if my wins reaches 5, I win
+		function iWin() {
+				alert('You win!');
+				myWins++;
+				myMoney = Number(myMoney) + Number(betting);
+				comMoney = Number(comMoney) - Number(betting);
+				//I win if my total wins reach 5
+				if(comMoney == 0) {
+					alert("You've earned $1,000 in total!!");
+					myWins = 0;
+					computerWins = 0;
+					myMoney = 0;
+					comMoney = 0;
+				}
+				reset();
+		}
+
+				
+				//this is the function I use when computer wins the game. It stacks the wins, and if wins reaches 5, they win
+		function comWins() {
+				alert("You lost");
+				computerWins++;
+				comMoney = Number(comMoney) + Number(betting);
+				myMoney = Number(myMoney) - Number(betting);
+				if(myMoney == 0) {
+					alert("You lost all your money..");
+					myWins = 0;
+					computerWins = 0;
+					myMoney = 0;
+				    comMoney = 0;
+				}
+				reset();
+		}
+			
+		//function for betting the money
+		function betMoney() {
+				//asking for the amount of money betting
+				betting = prompt("How much money do you want to bet?\n your remaining money is $" + myMoney)
+				//stops you from betting if you don't have enough money
+				if(betting > myMoney) {
+					alert("You don't have enough money!") 
+					betting = 0;
+				}
+				//asking the users to enter the number in case they didn't
+				else if(isNaN(betting)) {
+					alert('Enter the number please')
+					betting = 0;
+				}
+				//stops you from changing your betting when the game is started
+				else if(myTotal > 0) {
+					alert('The game has already started, you cannot change your betting during the game.')
+				}
+				//if the user clicks  cancel, the null value won't become the betting value
+				else if(betting == null) {
+					alert('You clicked cancel')
+				}
+				else {
+					document.formName.mbetting.value='$'+betting;
+				}
+		}		
+				
+				
+				
+		function randomCard() {
+				//this makes the users to bet the money before starting
+				if(betting == 0) {
+					alert('You must bet your money before you start')
+				}
+				else {
+					// picks random number from 1 to 10
+					ranNum = Math.floor(Math.random()*10)+1;
+					// this function asks the user if they want to change one to eleven or stay
+					if (ranNum == 1) {
+						var eleven = confirm("You've got an Ace. Do you want to make 11 or keep a 1?");
+					} if (eleven == true){
+						ranNum = 11;
+					}
+					//calculates my total and display
+					myTotal = myTotal + ranNum;
+					document.formName.mTotal.value=myTotal;
+					document.formName.mCard.value=ranNum;
+					alert("your random card is " + ranNum);
+					alert("your total is " + myTotal);
+					//tells you that you lost if your total number exceeds 21
+					if(myTotal > 21) {
+						comWins();
+					}
+					//I win when I have blackjack
+					else if(myTotal == 21) {
+						alert('You have blackjack!');
+						iWin();
+					}
+				}
+		}
+				
+				
+				
+				
+				
+				
+				
+				
+		//asks the user if they want to stop drawing the card
+		function stopDrawing() {
+				 
+				// the computer draws the card until their total is higher than the user's total
+				while(myTotal >= computerTotal && myTotal > 0) {
+					ranNum = Math.floor(Math.random()*10)+1;
+					computerTotal = computerTotal + ranNum;
+					//shows the cards I picked and the total number on the alert box
+					alert("Computer picked " + ranNum);
+					alert("Computer's total is " + computerTotal);
+				}
+				
+				
+				
+				//brings the function iwin and computerwins when each situation happens
+				if(computerTotal > 21) {
+					iWin();
+				} else if(myTotal == 0) {
+					alert('You must draw your card before you stand');
+				} else {
+					comWins();
+				}
+		}
+		function resetValue() {
+				location.reload();
+		}
+				
+				
+	</script>
+</head>
+
+<body>
+<!-- the table makes the button and the title stays in the same row-->
+	<table width=100%>
+	<tr>
+	<td width=33%>
+	<!-- this line makes the button for going back to the home page-->
+	<a href = "BlackJack_bettingHome.html"><button class="button button2" style="vertical-align:middle"><span> Home </span></button></a> 
+	</td>
+	<td width=33%>
+	<!-- this is the header of the page-->
+	<h1> BlackJack Game </h1>
+	</td>
+	<td align ="right">
+	<!-- the button for resetting the page-->
+	<button class = "button3" onClick="resetValue()">reset</button>
+	</td>
+	
+	</tr>
+	</table>
+	
+	<hr>
+	<FORM NAME="formName">
+	<!--the button for choosing a random card -->
+			<h2><INPUT TYPE = "button" onClick="randomCard()" value = "Draw a Card"> </h2>
+			
+	<!--the button stops drawing the card -->
+			<h2><INPUT TYPE = "button" onClick="stopDrawing()" value = "Stand"> </h2>
+			
+			<h2><INPUT TYPE = "button" onClick="betMoney()" value = "betting"> </h2>
+			<hr>
+			
+			
+			
+			
+	<!--these are the text boxes that stores the total number, total wins and the cards the user draws, and show them -->
+			<h3>You picked: <INPUT TYPE="TEXT" NAME ="mCard" SIZE="5" disabled></h3>
+			<h3>Your total number: <INPUT TYPE="TEXT" NAME ="mTotal" SIZE="5" disabled></h3> 
+			<h3>Your betting: <INPUT TYPE="TEXT" NAME ="mbetting" SIZE="5" disabled></h3> <P>
+			<hr>
+			<P> <h4>Rounds: <P><INPUT TYPE="TEXT" NAME ="round" SIZE="30" disabled></h4>
+			<P> <h4>My Money: <P><INPUT TYPE="TEXT" NAME ="mMoney" SIZE="30" disabled></h4>
+			<P>  <h4>Computer's Money: <P><INPUT TYPE="TEXT" NAME ="cMoney" SIZE="30" disabled></h4>
+			<hr>
+			</Form>	
+			
+			
+			
+	
+			
+			
+	
+			
+			
+					
+</body>
+
+</html>
+

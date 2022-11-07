@@ -1,0 +1,125 @@
+/*changes the background color*/
+	body {
+	background-color:ivory;
+}
+	/* determines the style of my header*/
+	h1 {
+	text-align: center;
+	font: 40px Georgia, serif;
+}	/* align to center*/
+	h2 {
+		text-align:center;
+	}
+	/*aligns the text to left and changes the font size*/
+	h3 {
+		text-align: left;
+		font-size: 20px;
+	}
+	/* align to center and changes the font size*/
+	h4 {
+		text-align:center;
+		font-size: 20px;
+	}
+	/* changes the font size of the lists*/
+	li {
+		font-size: 20px;
+	}
+	/*make the image come to middle*/
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	/*the button for going to the game page and going back to the homepage*/	
+.button {
+  display: inline-block;
+  border-radius: 20px;
+  background-color: Beige;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 28px;
+  font-family: Georgia, serif;
+  padding: 20px;
+  width: 300px;
+  transition: all 1s;
+  cursor: pointer;
+  margin: 5px;
+}
+/* function for when I hover my mouse on to the button, it chanegs the color and shows the arrow*/
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+/* function for when I hover my mouse on to the button, it chanegs the color and shows the arrow*/
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+/* function for when I hover my mouse on to the button, it chanegs the color and shows the arrow*/
+.button:hover span {
+  padding-right: 25px;
+  color: navy;
+  text-decoration: underline;
+}
+/* function for when I hover my mouse on to the button, it chanegs the color and shows the arrow*/
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+/*little change in size of button for going back to home button*/
+.button2 {
+	width: 100px;
+	height: 50px;
+	font-size: 14px;
+	margin-top:20px;
+}
+
+
+/* the button style for drawing, stop drawing the card and betting money*/
+ input[type=button] {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  font-family:Georgia, serif;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: black;
+  background-color: Bisque;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  width: 200px;
+}
+
+ input[type=button]:hover {background-color: BurlyWood}
+
+ input[type=button]:active {
+  background-color: BurlyWood;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+input[type=text] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 5px;
+  border-radius: 5px;
+  background-color: Lavender;
+  color:black;
+  font-weight: bold;
+}
+
+.botton3 {
+	width: 10px;
+}
